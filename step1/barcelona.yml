@@ -1,0 +1,18 @@
+environments:
+  production:
+    name: hello
+    image_name: docker.io/essa/barcelona-sample-hello
+    services:
+      - name: web
+        service_type: web
+        public: true
+        cpu: 128
+        memory: 256
+        command: ruby hello.rb
+        listeners:
+          - endpoint: test-endpoint
+            health_check_interval: 10
+            health_check_path: /
+            rule_conditions:
+              - type: path-pattern
+                value: '*'
